@@ -1,0 +1,148 @@
+:root {
+  --mp-highlight: #456;
+  --mp-hover-background: gainsboro;
+  --mp-hover-transition: background-color 250ms;
+}
+
+.mp {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  border-radius: 6px 6px 5px 5px;
+  background: whitesmoke;
+  font-family: Roboto;
+  font-size: 15px;
+  box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 5px 8px 0px rgba(0, 0, 0, 0.14), 0px 1px 14px 0px rgba(0, 0, 0, 0.12);
+}
+
+.mp-header {
+  grid-area: 1/1;
+  padding: 9px 0;
+  background: var(--mp-highlight);
+  border-radius: 5px 5px 0 0;
+  display: grid;
+  justify-items: center;
+}
+
+.mp-long-date {
+  color: white;
+  margin-bottom: 6px;
+}
+
+.mp-year-selector {
+  grid-area: 2/1;
+  display: grid;
+  grid: auto / auto 46px 46px 46px 46px 46px auto;
+  align-items: center;
+  color: #fffb;
+  height: 24px;
+}
+
+.mp-year {
+  cursor: pointer;
+  font-size: 12px;
+  justify-self: center;
+}
+
+.mp-year-selected {
+  cursor: initial;
+  font-size: 16px;
+  color: white;
+}
+
+.mp-month-selector {
+  grid-area: 2/1;
+  display: grid;
+  color: #456;
+  padding: 10px;
+}
+
+.mp-item {
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: var(--mp-hover-transition);
+}
+
+.mp-item:hover {
+  background: var(--mp-hover-background);
+}
+
+.mp-item-selected {
+  background: var(--mp-highlight);
+  color: white;
+}
+
+.mp-item-selected:hover {
+  background: var(--mp-highlight);
+  cursor: initial;
+}
+
+.mp-month {
+  width: 64px;
+  height: 36px;
+}
+
+.mp-future {
+  color: #f4ac03;
+}
+
+.mp-dark-future {
+  color: #c38902;
+}
+
+.mp-day-selector {
+  color: #456;
+  display: grid;
+  place-content: start center;
+  padding: 0 10px 10px;
+}
+
+.mp-dow {
+  display: grid;
+  place-content: center;
+  width: 32px;
+  height: 28px;
+  font-size: 12px;
+}
+
+.mp-day {
+  width: 32px;
+  height: 28px;
+}
+
+.mp-buttons {
+  grid-area: 4/1;
+  display: grid;
+  padding: 0 10px 10px 0;
+  justify-self: end;
+  display: grid;
+  align-items: center;
+  grid-auto-flow: column;
+}
+
+.mp-button {
+  color: #456;
+  border-radius: 4px;
+  height: 30px;
+  padding: 0 15px;
+  display: grid;
+  place-content: center;
+  color: #209bdb;
+  cursor: pointer;
+  transition: var(--mp-hover-transition);
+}
+
+.mp-button:hover {
+  background: var(--mp-hover-background);
+}
+
+.mp-weekend {
+  cursor: initial;
+  color: silver;
+}
+
+.mp-weekend:hover {
+  background: initial;
+}

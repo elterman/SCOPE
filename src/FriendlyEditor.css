@@ -1,0 +1,256 @@
+.fe {
+  grid-area: 1/1;
+  display: grid;
+  grid: 1fr auto auto auto / auto;
+  overflow: hidden;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.fe-table {
+  grid-area: 1/1;
+  display: grid;
+  grid: auto 1fr / auto;
+  overflow: hidden;
+  color: var(--off-white);
+}
+
+.fe-grid {
+  grid-area: 2/1;
+  align-content: start;
+}
+
+.fe-row {
+  display: grid;
+  grid: auto / 200px 70px 70px 1fr 1fr 40px;
+  grid-auto-flow: column;
+  height: 36px;
+}
+
+.fe-header-row {
+  grid-area: 1/1;
+  border-radius: 5px 5px 0 0;
+  color: #fff;
+  grid-auto-flow: column;
+}
+
+.fe-cell {
+  padding: 0 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  display: grid;
+  place-content: center;
+  border-style: solid;
+  border-color: var(--header-color);
+  border-width: 0 1px 0 0;
+}
+
+.fe-cell-header {
+  cursor: initial;
+}
+
+.fe-extra-header-cell {
+  padding: 0 0 0 10px;
+}
+
+.fe-cell-input {
+  border-radius: 0;
+  border-style: solid;
+  border-width: 1px;
+  outline: none;
+  color: #f8e47b;
+  text-align: center;
+  padding: 0;
+  visibility: hidden;
+  font-family: Roboto;
+}
+
+.fe-cell-field {
+  cursor: initial;
+  padding: 0 0 0 10px;
+  display: grid;
+  place-content: center stretch;
+}
+
+.fe-sort {
+  grid-area: 1/1;
+  place-self: center;
+  margin-top: 1px;
+}
+
+.fe-x {
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+}
+
+.fe-add-button {
+  grid-area: 1/1;
+  padding: 0 7px;
+  justify-self: start;
+  margin: 3px 0 0 150px;
+  z-index: 1;
+}
+
+.fe-bonds-header-row {
+  grid-area: initial;
+  border-radius: 0;
+  grid: auto / 75px 1fr 70px;
+}
+
+.fe-bonds-row {
+  display: grid;
+  grid: auto / 90px 1fr 70px;
+  grid-auto-flow: column;
+  height: 80px;
+}
+
+.fe-bonds-label {
+  display: grid;
+  place-content: center;
+  padding: 10px;
+  align-self: stretch;
+  text-align: center;
+}
+
+.fe-bonds-input {
+  background: #2a3339;
+  color: var(--off-white);
+  border: none;
+  outline: none;
+  resize: none;
+  font-size: 12px;
+  padding: 5px 10px;
+  align-self: stretch;
+  border-style: solid;
+  border-color: var(--header-color);
+  border-width: 0 1px;
+}
+
+.fe-bonds-hard {
+  display: grid;
+  align-self: stretch;
+  place-content: space-around;
+  justify-items: center;
+  padding: 5px 10px;
+}
+
+.fe-col-selector-host {
+  grid-area: 1/1;
+  padding: 46px 0 10px 10px;
+  z-index: 2;
+  height: 100%;
+  overflow: hidden;
+}
+
+.fe-col-selector {
+  display: grid;
+  height: 100%;
+  width: 200px;
+  overflow: auto;
+  background: #304050;
+  box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 5px 8px 0px rgba(0, 0, 0, 0.14), 0px 1px 14px 0px rgba(0, 0, 0, 0.12);
+  border-radius: 5px;
+}
+
+.fe-col-selector-item {
+  padding: 5px;
+  cursor: pointer;
+}
+
+.fe-col-selector-item:hover {
+  background: #222;
+  color: #24adf4;
+}
+
+.fe-extras {
+  grid-area: 1/1;
+  display: grid;
+  align-content: start;
+}
+
+.fe-extra-row {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  height: 36px;
+  background: #232f3b;
+}
+
+.fe-extra-label {
+  display: grid;
+  align-content: center;
+  padding: 10px;
+  align-self: stretch;
+}
+
+.fe-extra-input {
+  border-radius: 0;
+  border-width: 0;
+  outline: none;
+  padding: 0 10px;
+  font-family: Roboto;
+  background: none;
+  color: var(--off-white);
+}
+
+.fe-extra-value {
+  justify-self: start;
+  padding: 0 10px;
+  border-width: 0;
+}
+
+.fe-tabs-border {
+  grid-area: 2/1;
+  border: solid;
+  border-width: 1px 0 0 0;
+}
+
+.fe-tab-bar {
+  grid-area: 2/1;
+  display: grid;
+  grid-auto-columns: min-content;
+  grid-auto-flow: column;
+  user-select: none;
+  place-self: start;
+  height: 36px;
+  margin-left: 10px;
+}
+
+.fe-tab {
+  display: grid;
+  align-content: center;
+  grid-auto-flow: column;
+  padding: 0 10px;
+  color: white;
+  opacity: 0.7;
+  transition: opacity 250ms;
+  cursor: pointer;
+  box-sizing: border-box;
+  border: 0 solid #0000;
+  border-width: 0 1px 1px 1px;
+  white-space: nowrap;
+  border-radius: 0 0 7px 7px;
+}
+
+.fe-tab:hover {
+  opacity: 1;
+}
+
+.fe-tab-selected {
+  background-color: var(--background-color);
+  opacity: 1;
+  cursor: initial;
+  border: 0 solid var(--off-white);
+  border-width: 0 1px 1px 1px;
+}
+
+.fe-extras-table {
+  grid-area: 1/1;
+  display: grid;
+  grid: auto 1fr / auto;
+  align-content: start;
+  overflow: hidden;
+}

@@ -1,0 +1,130 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "environment": {
+            "defaultValue": "dev",
+            "type": "string",
+            "metadata": {
+                "description": "The name of the application environment we are deploying."
+            },
+            "allowedValues": [
+                "dev",
+                "uat",
+                "prd"
+            ]
+        }
+    },
+    "variables": {
+        "location": "[resourceGroup().location]",
+        "hideNatAddresses": [
+            "12.131.20.110",
+            "13.70.183.104",
+            "13.70.93.114",
+            "13.77.74.217",
+            "203.126.214.130",
+            "216.57.159.140",
+            "40.122.71.23",
+            "52.175.228.213",
+            "61.68.12.78",
+            "69.147.188.10",
+            "93.187.16.178"
+        ],
+        "regionCodes": {
+            "eastus2": "eu2",
+            "centralus": "cus"
+        },
+        "locationShortCode": "[variables('regionCodes')[variables('location')]]",
+        "storageAccountName": "[concat('sco', parameters('environment'), 'spa', variables('locationShortCode'))]",
+        "gmoStandardTags": {
+            "appIdOrProjectName": "APP00003270",
+            "environment": "[toUpper(parameters('environment'))]"
+        },
+        "gmoDataTags": {
+            "gmoDataClass": "confidential",
+            "gdprDataClasses": "unknown",
+            "gmoDataRetentionDocumentTypes": "0",
+            "gmoDataClassConfidentialTypes": "intellectualProperty"
+        }
+    },
+    "resources": [
+        {
+            "condition": "[equals(variables('locationShortCode'), 'eu2')]",
+            "comments": "Storage account for SPA static web app content.",
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2019-06-01",
+            "name": "[variables('storageAccountName')]",
+            "location": "[variables('location')]",
+            "tags": "[union(variables('gmoStandardTags'), variables('gmoDataTags'))]",
+            "sku": {
+                "name": "[if(equals(parameters('environment'), 'dev'), 'Standard_LRS', 'Standard_GRS')]",
+                "tier": "Standard"
+            },
+            "kind": "StorageV2",
+            "properties": {
+                "networkAcls": {
+                    "bypass": "None",
+                    "copy": [
+                        {
+                            "name": "ipRules",
+                            "count": "[length(variables('hideNatAddresses'))]",
+                            "input": {
+                                "value": "[variables('hideNatAddresses')[copyIndex('ipRules')]]",
+                                "action": "Allow"
+                            }
+                        }
+                    ],
+                    "defaultAction": "Deny"
+                },
+                "supportsHttpsTrafficOnly": true,
+                "encryption": {
+                    "services": {
+                        "file": {
+                            "keyType": "Account",
+                            "enabled": true
+                        },
+                        "blob": {
+                            "keyType": "Account",
+                            "enabled": true
+                        }
+                    },
+                    "keySource": "Microsoft.Storage"
+                },
+                "accessTier": "Hot"
+            },
+            "resources": [
+                {
+                    "condition": "[equals(variables('locationShortCode'), 'eu2')]",
+                    "comments": "Blob services (ADLS)",
+                    "type": "blobServices",
+                    "apiVersion": "2019-04-01",
+                    "name": "default",
+                    "dependsOn": [
+                        "[variables('storageAccountName')]"
+                    ],
+                    "properties": {
+                        "deleteRetentionPolicy": {
+                            "enabled": false
+                        }
+                    },
+                    "resources": [
+                        {
+                            "condition": "[equals(variables('locationShortCode'), 'eu2')]",
+                            "comments": "Adding $web container",
+                            "type": "containers",
+                            "apiVersion": "2019-04-01",
+                            "name": "$web",
+                            "dependsOn": [
+                                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', variables('storageAccountName'), 'default')]",
+                                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+                            ],
+                            "properties": {
+                                "publicAccess": "None"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
